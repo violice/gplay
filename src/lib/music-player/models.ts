@@ -1,10 +1,10 @@
-export { NoteFunctionType, MusicActionType, Instrument, NoteDuration } from './types';
+export { NoteFunctionType, MusicActionType, NoteDuration } from './types';
 export interface Tuning {
   note: string;
   frequency: number;
 }
 
-import { NoteFunctionType, Instrument } from './types';
+import { NoteFunctionType } from './types';
 
 export interface NoteDto {
   value: string;
@@ -22,7 +22,7 @@ export interface TactInfo {
 }
 
 export interface StaveInfo {
-  instrument: Instrument;
+  instrument: string;
   tacts: TactInfo[];
   sliderContext?: SliderContext;
 }

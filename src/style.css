@@ -213,3 +213,12 @@ button.danger:hover {
   font-size: 0.75rem;
   margin-top: 0.5rem;
 }
+
+#score-wrapper {
+  overflow-x: auto;
+}
+
+#score-container {
+  background: #1a1a2e;
+  border-radius: 8px;
+}

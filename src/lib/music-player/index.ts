@@ -5,7 +5,7 @@ export { FrequencyService } from './frequency-service';
 export { SoundService } from './sound-service';
 export { PlaySoundService } from './play-sound-service';
 export { MusicPositionService } from './music-position-service';
-export { Instrument, NoteFunctionType, NoteDuration } from './models';
+export { Instrument, NoteFunctionType, NoteDuration } from './types';
 export type {
   NoteDto,
   TactInfo,
