@@ -2,7 +2,7 @@ export class SoundService {
   private readonly N = 200000;
 
   karplusStrong(rate: number): number[] {
-    const noise = this.noise(Math.floor(this.N / rate));
+    const noise = this.noise(this.N / rate);
     const hps = this.highPass(noise, 0.5);
     const hbs = this.highBand(hps, noise.length, 0.1);
     const samples = [...hbs];
