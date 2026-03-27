@@ -1,0 +1,215 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  min-height: 100vh;
+  color: #e0e0e0;
+}
+
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.demo-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.demo-section h2 {
+  margin-top: 0;
+  color: #646cff;
+  font-size: 1.2rem;
+}
+
+.player-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.song-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.song-info {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.6em 1.2em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #646cff;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.primary {
+  background-color: #646cff;
+  border-color: #646cff;
+}
+
+button.primary:hover {
+  background-color: #535bf2;
+}
+
+button.danger {
+  background-color: #ff4444;
+  border-color: #ff4444;
+}
+
+button.danger:hover {
+  background-color: #cc3333;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-left: 1rem;
+}
+
+.status.playing {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.status.paused {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+.status.stopped {
+  background-color: #666;
+  color: #fff;
+}
+
+.progress {
+  background: #333;
+  border-radius: 4px;
+  height: 6px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #646cff, #bd34fe);
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.15s ease-out;
+  width: 0%;
+}
+
+.log-container {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+.log-entry {
+  margin: 0.2rem 0;
+  color: #0f0;
+}
+
+.log-entry.note {
+  color: #4fc3f7;
+}
+
+.log-entry.info {
+  color: #aaa;
+}
+
+.song-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.song-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.song-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #646cff;
+}
+
+.song-item.active {
+  border-color: #646cff;
+  background: rgba(100, 108, 255, 0.1);
+}
+
+.song-item h3 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1rem;
+}
+
+.song-item p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.song-item .bpm {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
