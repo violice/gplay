@@ -18,6 +18,7 @@ export interface MusicPlayerEvents {
   onNote?: (frequencies: number[], tact: number, note: number) => void;
   onTick?: (position: { tact: number; note: number; time: number }) => void;
   onEnd?: () => void;
+  onProgress?: (progress: { tactIndex: number; noteIndex: number; fraction: number }) => void;
 }
 
 export class MusicPlayer {
@@ -179,10 +180,21 @@ export class MusicPlayer {
 
         let times = Math.floor(interval.time);
         const fractional = interval.time % 1;
+        const totalSteps = Math.floor(interval.time);
+        let elapsedSteps = 0;
 
         const moveInterval = setInterval((speed: number, isEndOfTact: boolean) => {
           context.left += speed;
           times--;
+          elapsedSteps++;
+
+          const fraction = totalSteps > 0 ? elapsedSteps / totalSteps : 1;
+          
+          this.events.onProgress?.({
+            tactIndex: interval.tact || 0,
+            noteIndex: interval.note || 0,
+            fraction: Math.min(1, Math.max(0, fraction))
+          });
 
           if (times <= 0) {
             context.left += fractional * speed;

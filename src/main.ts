@@ -22,25 +22,24 @@ player.setEvents({
     addLog(`Note: ${frequencies.map(f => Math.round(f) + 'Hz').join(', ')}`, 'note');
   },
   onTick: (position) => {
-    updateNoteState(position.tact, position.note);
-    
     const staves = songs[getCurrentSongIndex()].composition.staves[0].tacts;
-    let totalNotes = 0;
-    let currentNote = 0;
+    let columnIndex = 0;
     const tactCount = staves.length;
     const currentTact = position.tact;
     const currentBeat = position.note;
     
     for (let i = 0; i < staves.length; i++) {
-      for (let j = 0; j < staves[i].notes.length; j++) {
-        if (i === position.tact && j === position.note) {
-          currentNote = totalNotes;
-        }
-        totalNotes++;
+      if (i === position.tact) {
+        columnIndex += position.note;
+        break;
       }
+      columnIndex += staves[i].notes.length;
     }
     
-    progress = Math.min(100, (currentNote / Math.max(1, totalNotes - 1)) * 100);
+    updateNoteState(position.tact, position.note, columnIndex);
+    
+    const totalColumns = staves.reduce((sum, t) => sum + t.notes.length, 0);
+    progress = Math.min(100, (columnIndex / Math.max(1, totalColumns - 1)) * 100);
     setProgress(progress);
     updateProgress();
     updatePositionDisplay(currentTact + 1, currentBeat + 1, tactCount);

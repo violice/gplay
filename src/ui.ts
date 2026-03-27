@@ -1,18 +1,28 @@
 import { MusicPlayer, MusicActionType } from './lib/music-player';
-import { NoteRenderer } from './lib/note-renderer';
+import { TabRenderer } from './lib/tab-renderer/tab-renderer';
+import type { PlayheadProgress } from './lib/tab-renderer/tab-renderer';
 import { Song, songs } from './data';
 
 let currentSongIndex = 0;
 let progress = 0;
 let scoreContainer: HTMLDivElement | null = null;
-let noteRenderer: NoteRenderer | null = null;
+let tabRenderer: TabRenderer | null = null;
 let player: MusicPlayer;
 
 export function initUI(musicPlayer: MusicPlayer): void {
   player = musicPlayer;
+  
+  player.setEvents({
+    onProgress: (progress: PlayheadProgress) => {
+      tabRenderer?.updatePlayheadProgress(progress);
+    },
+    onStop: () => {
+      tabRenderer?.resetPlayhead();
+    }
+  });
+  
   render();
   attachScoreRenderer();
-  window.addEventListener('resize', () => noteRenderer?.resize());
 }
 
 function attachScoreRenderer(): void {
@@ -29,23 +39,21 @@ function attachScoreRenderer(): void {
   scoreContainer.style.borderRadius = '8px';
   scoreContainer.style.overflow = 'auto';
 
-  if (noteRenderer) {
-    noteRenderer.destroy();
+  if (tabRenderer) {
+    tabRenderer.destroy();
   }
 
-  noteRenderer = new NoteRenderer(scoreContainer, {
-    showTactNumbers: true,
-    highlightCurrentNote: true,
-    stringCount: 6
+  tabRenderer = new TabRenderer(scoreContainer, {
+    showTactNumbers: true
   });
 
   scoreWrapper.appendChild(scoreContainer);
-  noteRenderer.render(songs[currentSongIndex].composition);
-  noteRenderer.updateState({ currentTact: 0, currentNote: 0 });
+  tabRenderer.render(songs[currentSongIndex].composition);
+  tabRenderer.updateState({ currentTact: 0, currentNote: 0 });
 }
 
-export function updateNoteState(tact: number, note: number): void {
-  noteRenderer?.updateState({ currentTact: tact, currentNote: note });
+export function updateNoteState(tact: number, note: number, columnIndex?: number): void {
+  tabRenderer?.updateState({ currentTact: tact, currentNote: note, columnIndex: columnIndex ?? 0 });
 }
 
 export function addLog(message: string, type: 'note' | 'info' = 'info'): void {
